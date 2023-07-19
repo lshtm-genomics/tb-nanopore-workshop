@@ -1,4 +1,4 @@
-# Klebsiella analysis
+# TB analysis
 
 The assemblies should be in your a directory called `assemblies` on the server.
 
