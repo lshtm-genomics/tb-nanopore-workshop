@@ -1,5 +1,133 @@
 # Aligning reads
 
+## Intended learning outcomes
+
+This practical session goes into how to align long-read sequencing data from ONT to a reference genome:
+
+1. Define the process of mapping sequence data
+2. Describe the different softwares used in the process
+3. Apply the commands to new data
+
+## Background
+
 Aligning short reads from next-generation sequencing platforms such as Oxford Nanopore Technology (ONT) to a reference genome is an essential step in the data analysis pipeline for several compelling reasons. Firstly, ONT generates millions of reads, typically around XXX to XXX base pairs in length, making them challenging to interpret individually. By aligning these reads to a reference genome, we can accurately map each read's origin and reconstruct the underlying genomic sequence. This process enables the detection of genetic variations, such as single-nucleotide polymorphisms (SNPs) and structural variants, aiding in the understanding of genetic diversity and finding important mutations such as those that casue resistance.
 
-Additionally, alignment to a reference genome facilitates gene expression analysis, identifying regions of the genome actively transcribed and contributing to the characterization of various biological processes. Ultimately, aligning short reads to a reference genome is critical for interpreting NGS data, unlocking valuable insights into the genetic basis of diseases, evolutionary relationships, and other genomic phenomena.
+!!! info
+    Usually we refer to the alignment of reads to a reference as **mapping**. You might see these used interchangebly in the literature and in protocols.
+
+To perform mapping of the reads we need to use a reference genome. Mycobacterium tuberculosis (Mtb) does not have a large amount of genomic diversity compared to other bacteria and for most purposes we can use the sequence of the H37Rv lab strain which was published in 1998 by Cole et al[^1]. We have downloaded the reference sequence for you and have put it in the `~/refgenome/` directory under the name `tb.fasta`.
+
+The FASTA format is a widely used text-based file format for representing biological sequence data. It is named after the program FASTA, which introduced this format for sequence similarity searching. In a FASTA file, each biological sequence (DNA, RNA, or protein) is represented by two parts: a single-line sequence identifier, beginning with the ">" symbol, followed by a multi-line sequence data section. The sequence data contains the actual string of letters representing the sequence itself. FASTA format is simple, human-readable, and allows for easy exchange of biological sequence data among researchers and bioinformatics tools. Its versatility and popularity make it an essential standard for storing and sharing genetic and protein sequence information in various bioinformatics applications and databases.
+
+!!! question "Exercise"
+    
+    === "Question"
+
+        Try to use the skills you learned in the into to linux session to take a look at the fasta file and check it matches the description above.
+
+    === "Answer"
+
+        You can use the `head` command to look at the file
+        ```
+        head ~/refgenome/tb.fasta
+        ```
+
+Let's find out some more about the TB sequence. We can use a tool called `seqkit` for this, this will give you basic information such as the length of sequence and the number of sequences.
+
+```
+seqkit stats ~/refgenome/tb.fasta
+```
+
+!!! question "Exercise"
+    
+    === "Question"
+
+        What is the length of the genome sequence?
+
+    === "Answer"
+
+        You should be able to see that the "sum_len" column reports 4,411,532 which is the number of basepairs in the genome of Mtb.
+
+The sum_len, min_len, avg_len and max_len columns all report the same value because there is only one sequence in the tb genome. These columns are more useful to look at when analysing files with multiple sequences, for example, the fastq files we get from the minION.
+
+The basecalled data is in the `~/data/example_data` folder. Change the working directory to where the data is using the the following command:
+
+```
+cd ~/data/example_data
+```
+
+!!! question "Exercise"
+    
+    === "Question"
+
+        What is the mean length of the reads for the different samples?
+        Which sample has the most reads?
+
+    === "Answer"
+
+        You can use seqkit to find this by running:
+        
+        ```
+        seqkit stats *.fastq.gz
+        ```
+
+        This will give you the stats for all four files. Sample1 has the most reads with 278,337 reads.
+
+        
+!!! info
+    The asterisk ("*") represents zero or more characters. When used in commands, it matches any sequence of characters. In the example above it matchs all files with a ".fastq.gz" extension, regardless of the filename's prefix or length. You can try this out by running the following command:
+
+    ```
+    echo *.fastq.gz
+    ```
+
+## Software
+
+### Minimap2
+
+We are now going to align our reads to the H37Rv reference using a tool called `minimap2`, which is a versatile and efficient sequence alignment tool primarily used for mapping DNA or RNA sequences against reference genomes. It is designed to handle long-read sequencing data, which is generated by technologies like PacBio or Oxford Nanopore. To perform its alignment tasks, Minimap2 requires the following inputs:
+
+1. Query Sequences: These are the sequences that you want to align to the reference genome. Query sequences can be in FASTA or FASTQ format and typically represent DNA or RNA sequences generated from sequencing technologies like PacBio or Oxford Nanopore.
+
+2. Reference Genome: Minimap2 needs a reference genome against which the query sequences will be aligned. The reference genome is typically a well-assembled, known genome, represented in a FASTA format. It acts as a blueprint to which the query sequences are compared and aligned. It also takes in some optional parameters such as the type of input data (e.g. ONT or PacBio). 
+
+### Samtools
+
+We will also utilise `samtools` to store the aligned data in an appropriate format. Samtools is a widely used and powerful software suite for processing and manipulating data from high-throughput DNA sequencing experiments. Its name is derived from the "Sequence Alignment/Map" format, commonly known as SAM. Samtools allows researchers to work with sequence data in SAM, BAM (binary version of SAM), and CRAM (compressed version of SAM) formats. Key functionalities of `samtools` include file format conversion, sorting and indexing. 
+
+Samtools is an essential component in many bioinformatics pipelines and is widely adopted by researchers and bioinformaticians to process, analyze, and interpret next-generation sequencing data. Its efficiency, versatility, and open-source nature have contributed to its popularity in the genomics community. 
+
+
+## Running mapping
+
+To run the mapping analysis for sample1 please run the following command:
+
+```
+minimap2 -a -x map-ont ~/refgenome/tb.fasta sample1.fastq.gz | samtools sort - -o sample1.bam
+```
+
+There are a few things going with this command so lets go through each component. First of all you'll probably notice that there is a pipe (|) present so this means that there are two jobs running in series. The first one if `minimap2` which passes its processed data to `samtools`. We'll go through the `minimap2` part first. 
+
+The `-a` argument tells minimap to output in SAM format. The `-x map-ont` argument tells the software that we are mapping ONT data and as such the process will be optimised for this. 
+
+The SAM format data is then passed to samtools using a pipe. We use the `samtools sort` function to sort the data and store it in a binary compressed version of SAM called BAM format. Samtools can either read from an existing file or read from a pipe and this is given using the first command. We used the `-` character to tell samtools that we are reading from a pipe. The `-o sample1.bam` argument tells samtools to store the output in a file called **sample1.bam**. 
+
+## Quality control
+
+As usual we need to check the quality of the alignments. There are a few quick metrics that we can check to see if the process has worked correctly. These include:
+
+1. The total number of reads mapped
+2. The percentage of total reads that mapped to the reference
+3. The average depth of coverage across the genome
+4. The percentage of the genome that is covered by our minimum desired depth
+
+We can use `samtools` to calculate these metrics. The first two can be computed using the following command:
+
+```
+samtools flagstat sample1.bam
+```
+
+This will print out a few different numbers two of which include the total number of reads mapped and 
+
+[^1]: Cole, S. T. et al. Deciphering the biology of Mycobacterium tuberculosis from the complete genome sequence. Nature 393, 537–544 (1998).
+

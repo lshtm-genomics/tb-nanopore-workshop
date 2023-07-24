@@ -8,10 +8,12 @@ theme:
     - navigation.instant
     - navigation.tabs
     - toc.integrate
+    - content.tabs.link
 
 
 markdown_extensions:
   - admonition
+  - footnotes
   - pymdownx.details
   - pymdownx.superfences
   - abbr
@@ -33,3 +35,4 @@ nav:
   - Bioinformatics: 
       - bioinformatics/intro-to-linux.md
       - bioinformatics/basecalling.md
+      - bioinformatics/mapping.md
