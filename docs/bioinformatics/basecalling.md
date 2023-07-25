@@ -141,8 +141,8 @@ The following line of code is composed of these elements:
 
 * `kraken2` – calling the kraken2 executable
 *  `--db ~/tb-kraken` - this points kraken to a vast sequence database of relevant microorganisms to cross-check our reads against
-* `--output temp.krak` – this argument locates the output file
-* `WT.porechop.fastq.gz` – this argument locates the input file
+* `--output sample1.koutput.txt` – this argument locates the output file
+* `~/data/example_data/sample1.fastq.gz` – this argument locates the input file
         
 As before, to save time, we will run Kraken on only one sample. Type the following command in to the terminal to unleash the Kraken:
 
@@ -184,7 +184,7 @@ firefox sample1.rcf.html
     pycoQC -f ~/data/example_data/basecalling/fastq/.sequencing_summary.txt -o ~/data/example_data/basecalling/fastq/pycoqc_results.html
     firefox ~/data/example_data/basecalling/fastq/pycoqc_results.html &
     cd ~/data/example_data/basecalling/fastq
-    porechop -i ~/data/example_data/basecalling/fastq/WT.fastq.gz -o WT.porechop.fastq
+    porechop -i ~/data/example_data/basecalling/fastq/pass/barcode01 -o barcode01.porechop.fastq
     cd ~/data/example_data/kraken
     kraken2 --db ~/tb-kraken --output sample1.koutput.txt ~/data/example_data/sample1.fastq.gz
     rcf -k sample1.koutput.txt -o sample1.rcf.html --nodespath ./taxdump
