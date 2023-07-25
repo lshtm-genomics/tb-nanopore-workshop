@@ -34,5 +34,6 @@ nav:
   - Lab-protocols: lab-protocols
   - Bioinformatics: 
       - bioinformatics/intro-to-linux.md
+      - bioinformatics/data.md
       - bioinformatics/basecalling.md
       - bioinformatics/mapping.md

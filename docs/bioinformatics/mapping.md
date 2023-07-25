@@ -112,6 +112,14 @@ The `-a` argument tells minimap to output in SAM format. The `-x map-ont` argume
 
 The SAM format data is then passed to samtools using a pipe. We use the `samtools sort` function to sort the data and store it in a binary compressed version of SAM called BAM format. Samtools can either read from an existing file or read from a pipe and this is given using the first command. We used the `-` character to tell samtools that we are reading from a pipe. The `-o sample1.bam` argument tells samtools to store the output in a file called **sample1.bam**. 
 
+## Indexing
+
+BAM files are binary representations of aligned sequencing data, and indexing these files enhances data accessibility and dramatically speeds up specific operations. Indexing allows software to quickly retrieve data from specific genomic regions, making it essential for tasks such as variant calling, visualization, and downstream analyses. Without an index, tools would need to scan the entire BAM file sequentially, resulting in significantly slower processing times, especially for large datasets. Additionally, indexed BAM files are required for many bioinformatics tools to function correctly, ensuring proper data manipulation, extraction, and filtering. We can index the bam file using samtools:
+
+```
+samtools index sample1.bam
+```
+
 ## Quality control
 
 As usual we need to check the quality of the alignments. There are a few quick metrics that we can check to see if the process has worked correctly. These include:
@@ -121,13 +129,15 @@ As usual we need to check the quality of the alignments. There are a few quick m
 3. The average depth of coverage across the genome
 4. The percentage of the genome that is covered by our minimum desired depth
 
-We can use `samtools` to calculate these metrics. The first two can be computed using the following command:
+For all these metrics, higher values are better and indicate better coverage across the genome. We can use `samtools` to do the calculations. The first two can be computed using the following command:
 
 ```
 samtools flagstat sample1.bam
 ```
 
-This will print out a few different numbers two of which include the total number of reads mapped and 
+This will print out a few different numbers two of which include the total number of reads mapped and the percentage of reads that mapped. 
+
+Metrics 3 and 4 can be calculated by first 
 
 [^1]: Cole, S. T. et al. Deciphering the biology of Mycobacterium tuberculosis from the complete genome sequence. Nature 393, 537–544 (1998).
 
