@@ -137,7 +137,98 @@ samtools flagstat sample1.bam
 
 This will print out a few different numbers two of which include the total number of reads mapped and the percentage of reads that mapped. 
 
-Metrics 3 and 4 can be calculated by first 
+Metrics 3 and 4 can be calculated by first using bedtools to calculate the depth of coverage across every site in the genome. We can do this with the following command:
+
+```
+bedtools genomecov -ibam sample1.bam > sample1.cov.txt
+```
+
+Have a look at the file by using `less` or `head`. The columns show:
+
+1. Chromosome name
+2. Depth
+3. Number of bases at that depth
+4. Total length of the genome
+5. Fraction of the genome at that depth
+
+A good coverage for downstream analysis would be >=20x. We can work this out manually usuing the coverage file or we can do it automatically with a script that we have written for you:
+
+```
+genomecov_summary.py -i sample1.cov.txt -c 20
+```
+
+This will print the percentage of the genome that is covered by 20x. You can change the `-c` number if you need to be more or less stringent.
+
+!!! question "Exercise"
+    
+    === "Question"
+
+        Try run this for the other sample bams. Do they all have sufficient coverage?
+
+    === "Answer"
+
+        Sample 2 has very low coverage and is not sufficient for downstream analysis.
+
+
+## Viewing the alignments
+
+Another way to look at the quality of your alignments is by using a genome browser. The Integrative Genomics Viewer (IGV) is a powerful and widely used genome browser that facilitates the visualization and analysis of genomic data. Developed by the Broad Institute, IGV provides researchers with a user-friendly interface to explore various genomic data types, including next-generation sequencing data. Users can view aligned sequence reads, gene annotations, and genomic features, as well as compare multiple samples and datasets simultaneously. Open up the GUI by entering `igv` in to the terminal. You should see a window pop up pre-loaded with the Mtb genome. 
+
+### Loading your bam file
+
+Load your bam files by clicking on "File" -> "Load from File..." and then selecting the bam files for sample 1 and sample 2 that you created earlier.
+
+!!! warning "Important"
+    IGV requires an index file for all the bam files you are loading. If you get an error please check if you have run this step.
+
+There is a lot going on on the screen so have a look at the image below which explains some of the most important features.
+
+![](../img/mapping_1.jpg)
+
+1. Zoom controls: This controls the level of zoom. To see your alignments you will need to zoom in
+2. Search bar: Here you can specify the region you want to view using genomic coordinates in the form of Chromosome:start-end. You can also search by gene name.
+3. Coverage track: This displays when you have loaded a bam file and is a bargraph where each bar represents a genomic position and the high is determined by the number of reads aligning to that position. If you click on a bar it will open up a window telling you the number of ACTGs. 
+4. Alignment track: Each grey bar represents a read. If there are coloured nucleotides, black dashes or purple vertical lines it represents a difference from the reference. Have a look at [this document](https://software.broadinstitute.org/software/igv/AlignmentData) to find out more.
+5. Gene track: This shows the location and orientation of the genes. Click on a gene to find out more information.
+
+!!! question "Exercise"
+    Have a go at exploring your alignments. What differences do you see between the two samples you have loaded?
+
+### Identifying mutations
+
+You might have noticed a lot of colour on both the the coverage track and the alignment track. This indicates that the aligned data differs from the reference and this could arise from a mutation. It is important to distinguish between a true mutation and an error from the sequencer. A high depth of sequencing is essential in next-generation sequencing (NGS) data analysis to accurately identify true mutations amid the inherent noise and errors in the sequencing process. 
+
+The depth of sequencing refers to the number of times a given base in the genome is sequenced or covered by reads. By increasing the depth of sequencing, we improve the confidence in the called variants and enhance the ability to distinguish true mutations from sequencing artifacts or random errors. In regions with low coverage, the probability of missing genuine mutations increases, leading to false-negative results.  Therefore, a high depth of sequencing is crucial in NGS data analysis to ensure the reliability and accuracy of identified mutations and to gain deeper insights into the underlying genomic variations. As ONT data is relatively noisy compared to Illumina data, it is important to get a good coverage across your samples.
+
+Let's zoom into a region containing the rpoB gene. This gene is the target of rifampicin and mutation confering resistance often arise in thes gene. Type in "rpoB" into the search bar and hit enter to zoom into the correct region. You should see a view similar to the one below.
+
+![](../img/mapping_2.png)
+
+
+Colours are displayed on the coverage track if a non-reference nucleotide is present at >= 20% of the total reads aligning to that position. These are potential candidates for containing a mutation. 
+
+!!! question
+    What differences do you notice between the two samples? What does this mean?
+
+Zoom into a few of the potential variant positions in sample1 as shown in the figure below. Can you identify which ones are error and which are true variants? 
+
+![](../img/mapping_3.png)
+
+A simple method would be to use a majority consensus rule, whereby you take look at the allele which constitutes >=50% of the total reads and check if it is different from the reference. Fill in the table below to see if you have any mutations. You can zoom to a specific potition my inputting the locus into the search bar (e.g. "Chromosome:760497") and hitting enter.
+
+| Position                   | Reference | Majority allele   | Variant   | 
+|----------------------|--------|--------|--------|
+| 760497                 | C      | C      | No      | 
+| 761155                  | C      | <input type="text"></input>      | <input type="text"></input>      | 
+| 761422                  | A      | <input type="text"></input>      | <input type="text"></input>      | 
+| 761423                  | T      | <input type="text"></input>      | <input type="text"></input>      | 
+| 761656                  | C      | <input type="text"></input>      | <input type="text"></input>      | 
+
+
+!!! question
+    It looks like sample2 has many more variants. Are these true variants or errors?
+
+While it is very useful to look at the sequencing data as we have above, however it is very time consuming as I'm sure you have noticed. While it is possible to do for a specific gene in a sample, this method is not feasible if we scale up to the 4000 genes and multiple samples. For this reason we have automated methods that do exacly as we have done. We will cover these methods in variant detection.
 
 [^1]: Cole, S. T. et al. Deciphering the biology of Mycobacterium tuberculosis from the complete genome sequence. Nature 393, 537–544 (1998).
 

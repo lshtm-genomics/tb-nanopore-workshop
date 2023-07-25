@@ -11,21 +11,19 @@ We have provided you with sequencing data from 4 samples that were collected in 
 
 | ID                   | sample1 | sample2   | sample3   | sample4   |
 |----------------------|--------|--------|--------|--------|
-| INH                  | R      | R      | R      | R      |
-| RIF                  | R      | R      | R      | R      |
-| STR                  | R      | S      | R      | R      |
-| ETB                  | R      | S      | R      | R      |
-| PZA                  | R      | S      | R      | R      |
-| RFB                  | R      | R      | R      | R      |
-| ETH                  | R      | R      | R      | R      |
-| AMK                  | R      | S      | R      | R      |
-| CAP                  | R      | S      | R      | S      |
-| OFX                  | R      | S      | R      | R      |
-| MOX                  | R      | S      | R      | R      |
-| PAS                  | R      | S      | S      | S      |
-| LZ                   | S      | S      | S      | S      |
-| KAN                  | R      | -      | R      | R      |
-| Resistance phenotype | XDR-TB | MDR-TB | XDR-TB | XDR-TB |
+| Isoniazid                  | R      | R      | R      | R      |
+| Rifampicin                  | R      | R      | R      | R      |
+| Streptomycin                  | R      | S      | R      | R      |
+| Ethambutol                  | R      | S      | R      | R      |
+| Pyrazinamide                  | R      | S      | R      | R      |
+| Amikacin                  | R      | S      | R      | S      |
+| Kanamycin                  | R      | -      | R      | S      |
+| Capreomycin                  | R      | S      | R      | S      |
+| Ofloxacin                  | R      | S      | R      | S      |
+| Moxifloxacin                  | R      | S      | R      | S      |
+| Ethionamide                  | R      | R      | R      | R      |
+| Linezolid                   | S      | S      | S      | S      |
+| Resistance phenotype | XDR-TB | MDR-TB | XDR-TB | MDR-TB |
 
 
 [^1]: Phelan, J. E. et al. Integrating informatics tools and portable sequencing technology for rapid detection of resistance to anti-tuberculous drugs. Genome Med 11, 41 (2019).
