@@ -45,7 +45,7 @@ Use the `ls` command to see what is inside this folder. Use `head` to preview on
  Basecalling can be performed in a number of ways. There is an option to perform this while sequencing in the MinKNOW GUI, however this software provides fewer options in the ways basecalling can be completed. Here, we will use Guppy for maximum flexibility. Since the machines we are working on do not have a GPU available we will have to use the two CPU cores available to us. Therefore, we will only basecall a subset (<1%) of the dataset as an example, and in the subsequent steps we will use a pre-basecalled output. Copy the whole line in to the terminal and execute the command:
 
 ```
-guppy_basecaller --config ~/bin/ont-guppy/data/dna_r9.4.1_450bps_fast.cfg --trim_adapters --detect_barcodes --compress_fastq  --input_path ~/data/example_data/basecalling/fast5  --save_path ~/data/example_data/basecalling/fastq
+guppy_basecaller --config ~/bin/ont-guppy-cpu/data/dna_r9.4.1_450bps_fast.cfg --trim_adapters --detect_barcodes --compress_fastq  --input_path ~/data/example_data/basecalling/fast5  --save_path ~/data/example_data/basecalling/fastq
 ```
 
 We used the the dna_r9.4.1_450bps_fast model for basecalling as this data was generated with a r9.4.1 chemistry, we also using a model which runs fast but produces lower accuracy data. The model should be adjusted based on the chemistry (e.g. r10.4.1) and the desired speed (fast, higher and superior accuracy). A number of models are listed below.
@@ -179,7 +179,7 @@ firefox sample1.rcf.html
     ```
     conda activate basecalling
     cd ~/data/example_data/basecalling/fast5 
-    guppy_basecaller --config ~/bin/ont-guppy/data/dna_r9.4.1_450bps_fast.cfg --trim_adapters --detect_barcodes --compress_fastq  --input_path ~/data/example_data/basecalling/fast5  --save_path ~/data/example_data/basecalling/fastq
+    guppy_basecaller --config ~/bin/ont-guppy-cpu/data/dna_r9.4.1_450bps_fast.cfg --trim_adapters --detect_barcodes --compress_fastq  --input_path ~/data/example_data/basecalling/fast5  --save_path ~/data/example_data/basecalling/fastq
     cd ~/data/example_data/basecalling/fastq/pass
     pycoQC -f ~/data/example_data/basecalling/fastq/.sequencing_summary.txt -o ~/data/example_data/basecalling/fastq/pycoqc_results.html
     firefox ~/data/example_data/basecalling/fastq/pycoqc_results.html &
