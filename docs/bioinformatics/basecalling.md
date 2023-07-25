@@ -68,7 +68,7 @@ When the process in completed, you will find the basecalled reads in a .fastq fo
 cd ~/data/example_data/basecalling/fastq/pass
 ```
 
-Use the `ls` command to see what is inside this folder. This directory holds the fastq formatted 'pass' reads  from the basecalling process. The reads have a quality score > 7. Use  zcat FILENAME | head to preview the compresssed fastq file. Unlike the fast5 files, these are human-readable and contain all of the read data required for downstream analyses. Can you identify any of the common elements of a .fastq format files - similar to the ones you may have encountered in previous sessions? Click here to find out more about the [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format) format.
+Use the `ls` command to see what is inside this folder. This directory holds several folders - one for each barcode found by guppy. Each of these folders contains the fastq formatted 'pass' reads from the basecalling process. The reads have a quality score > 7. Use  `zcat FILENAME | head` (remebering to use the correct filename) to preview the compresssed fastq file. Unlike the fast5 files, these are human-readable and contain all of the read data required for downstream analyses. Can you identify any of the common elements of a **.fastq** format files - similar to the ones you may have encountered in previous sessions? Click here to find out more about the [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format) format.
 
 
 ## Basecalling - Quality Control
@@ -117,12 +117,12 @@ Before continuing, quit firefox by clicking the X in the top right corner of the
 ## Adapter Trimming
 Nanopore library preparation results in the addition of a sequencing adapter at each end of the fragment. Both the template and complement strands to be sequenced carry the motor protein which means both strands are able to translocate the nanopore. For downstream analysis, it is important to remove these adapters. For this we will use Porechop. This program processes all of the reads in our basecalled fastq file, and removes these adapter sequences. Furthermore, the ligation library prep process can result in conjoined reads, meaning an adapter will be found in the middle of an extra-long read. Porechop will identify these, split them and remove the adapters. In addition, if you use a multiplexing kit to maximise sample throughput, this program will split the reads based on the molecular barcode added to each sample. Our dataset only has one sample, so this demultiplexing won't be necessary. 
 
-Let's launch porechop and remove the adapters from the basecalled fastq files. The RAP and DMSO files have already been done for you. First move up one directory, to where we have put the pre-basecalled files for you, then launch the command below that to run porechop on the WT dataset:
+Let's launch porechop and remove the adapters from the basecalled fastq file of barcode01.
 
 ```
 cd ~/data/example_data/basecalling/fastq
 
-porechop -i ~/data/example_data/basecalling/fastq/WT.fastq.gz -o WT.porechop.fastq
+porechop -i ~/data/example_data/basecalling/fastq/pass/barcode01 -o barcode01.porechop.fastq
 ```
 
 Read the output of the terminal to understand better what porechop is doing to the dataset. Ask a demonstrator if you have any questions about this.
