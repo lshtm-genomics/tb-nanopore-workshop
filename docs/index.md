@@ -1,5 +1,7 @@
-# TB nanopore workshop
+# Welcome to the documentation for the TB- nanopore workshop
 
-Welcome to the documentation for the TB- nanopore workshop!
+Here, you can find all of the resources for the bioinformatics sessions of the workshop.
 
-We have provided all the materials that you need here.
+![Workflow image](./img/workflow_diagram.png)
+
+
