@@ -10,7 +10,7 @@ This practical session goes into how to align long-read sequencing data from ONT
 
 ## Background
 
-Aligning short reads from next-generation sequencing platforms such as Oxford Nanopore Technology (ONT) to a reference genome is an essential step in the data analysis pipeline for several compelling reasons. Firstly, ONT generates millions of reads, typically around XXX to XXX base pairs in length, making them challenging to interpret individually. By aligning these reads to a reference genome, we can accurately map each read's origin and reconstruct the underlying genomic sequence. This process enables the detection of genetic variations, such as single-nucleotide polymorphisms (SNPs) and structural variants, aiding in the understanding of genetic diversity and finding important mutations such as those that casue resistance.
+Aligning short reads from next-generation sequencing platforms such as Oxford Nanopore Technology (ONT) to a reference genome is an essential step in the data analysis pipeline for several compelling reasons. Firstly, ONT generates millions of reads, typically around a couple of kb in length, making them challenging to interpret individually. By aligning these reads to a reference genome, we can accurately map each read's origin and reconstruct the underlying genomic sequence. This process enables the detection of genetic variations, such as single-nucleotide polymorphisms (SNPs) and structural variants, aiding in the understanding of genetic diversity and finding important mutations such as those that casue resistance.
 
 !!! info
     Usually we refer to the alignment of reads to a reference as **mapping**. You might see these used interchangebly in the literature and in protocols.

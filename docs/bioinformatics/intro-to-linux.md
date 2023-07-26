@@ -19,12 +19,10 @@ You can see a number of sub-folders and files present in the file explorer. Let'
 
 In the file explorer double click on the data folder. You will see several new folders which hold the data for the proceeding practicals. Let's try find them using the terminal!
 
-When we double clicked on the data folder we effectively moved from the home folder to the data folder. We will have to do the same using the terminal. To do this, type in cd data and hit enter. Now try using ls again to produce the same list of folders that you see in the file explorer.
+When we double clicked on the data folder we effectively moved from the home folder to the data folder. We will have to do the same using the terminal. To do this, type in `cd data` and hit enter. Now try using ls again to produce the same list of folders that you see in the file explorer.
 
 !!! info 
     Folders are often referred to as directories in Linux. We will use directory from now on, but the two words are synonymous. 
-
-XXX
 
 
 You will notice that text in front of the $ sign changed when you moved from home to data. You should see something similar to what is shown below: 
@@ -50,7 +48,7 @@ Now that you have mastered using the terminal you can close the file explorer, t
 Change to the tb directory and have a look at the files. Hopefully you will be able to see the **tb.fasta** file. The file is just a very large text file which stores the sequence data of the M. tuberculosis reference genome. We can use `head` to take a look at the first few lines of a file. Let's try it: 
 
 ```
-cd tb
+cd ~/refgenome
 ls
 head tb.fasta
 ```
