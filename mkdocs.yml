@@ -37,3 +37,4 @@ nav:
       - bioinformatics/data.md
       - bioinformatics/basecalling.md
       - bioinformatics/mapping.md
+      - bioinformatics/variant-calling.md
