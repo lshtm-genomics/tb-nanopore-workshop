@@ -234,7 +234,7 @@ A simple method would be to use a majority consensus rule, whereby you take look
 !!! question
     It looks like sample2 has many more variants. Are these true variants or errors?
 
-While it is very useful to look at the sequencing data as we have above, however it is very time consuming as I'm sure you have noticed. While it is possible to do for a specific gene in a sample, this method is not feasible if we scale up to the 4000 genes and multiple samples. For this reason we have automated methods that do exacly as we have done. We will cover these methods in variant detection.
+While it is very useful to look at the sequencing data as we have above, however it is very time consuming as I'm sure you have noticed. While it is possible to do for a specific gene in a sample, this method is not feasible if we scale up to the 4000 genes and multiple samples. For this reason we have automated methods that do exactly as we have done. We will cover these methods in variant detection.
 
 [^1]: Cole, S. T. et al. Deciphering the biology of Mycobacterium tuberculosis from the complete genome sequence. Nature 393, 537–544 (1998).
 
