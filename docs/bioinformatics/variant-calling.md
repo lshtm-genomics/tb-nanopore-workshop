@@ -82,7 +82,7 @@ All variant callers create outputs called a Variant Call File (VCF). This file c
 ## Calling variants for our TB samples
 With Pilon, we can set a hard cut-off limit for the variants we accept. Given that we have used nanopore sequencing, we set this high to avoid picking up erroneous variants.
 
-*Run Pilon now on the three BAMs created in the previous session*
+**Run Pilon now on the three BAMs created in the previous session**
 
 ```
 Pilon command here
