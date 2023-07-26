@@ -12,6 +12,8 @@ This practical session goes into how to perform variant calling on long-read seq
 
 Variants in genomic data refer to differences in the sequence of DNA or RNA between individuals or between a sample and a reference genome. These differences can manifest as single nucleotide polymorphisms (SNPs), insertions, deletions, or more complex structural variations. Given that you're familiar with sequencing technologies and mapping, let's delve straight into the concept of variant calling, emphasizing its application in Oxford Nanopore sequencing data.
 
+![Variant in alignment](../img/variant_diagram.png)
+
 ### Variant Calling: A Bird’s-Eye View
 Once you've sequenced your DNA sample and mapped the reads onto a reference genome, the next step is to identify where your sample differs from this reference. This process is known as variant calling. Conceptually, it's like comparing two texts and highlighting where they differ. In this genomic context, these differences — or variants — can be tiny, like a single changed letter (a SNP), or larger, like a whole sentence being added or removed (an insertion or deletion).
 
@@ -83,7 +85,7 @@ With Pilon, we can set a hard cut-off limit for the variants we accept. Given th
 *Run Pilon now on the three BAMs created in the previous session*
 
 ```
-
+Pilon command here
 ```
 
 Now that the variant calling is complete, you can open the VCF files and inspect the variants. If you were writing a paper on the prevalence of mutations in a population, you could use this output to make a table reporting allele frequencies of mutations.
@@ -93,3 +95,5 @@ zcat sample1.vcf.gz
 ```
 
 We can visualise the variant calls alongside the mapping data you have created. With IGV open, and your alignment loaded, add the VCF track, and navigate to position XXXXXXX. Here we can see where the variant caller has found a position with > 70% of the bases supporting the ALT allele. Navigate to position XXX. Here we can see where a variant has not _made the cut_. In this case, the ALT frequency was < 70%, therefore, it was not included as a variant in our VCF.
+
+## Consequence calling  
