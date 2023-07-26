@@ -33,3 +33,7 @@ Given the error-prone nature of Oxford Nanopore sequencing, strategies have been
 
 ### In Conclusion
 Variant calling in Oxford Nanopore sequencing data poses unique challenges due to its error-prone nature. But with careful data processing, the use of specialized tools designed for long reads, and strategies to discern real variants from errors, researchers can extract valuable genetic insights from their samples. As with any genomic analysis, it's always a good practice to stay updated with the latest tools and methodologies, and always cross-check critical results for the highest accuracy.
+
+## Activity
+
+We are going to take the three TB samples you mapped in the previous activity and perform variant calling. There are many tools available for variant calling. The most common are [Freebayes](https://github.com/freebayes/freebayes) or [GATK](https://gatk.broadinstitute.org/hc/en-us), but these are used primarily for short-read data. We are going to use nanopore-specific tools. Options include ONT's own [Medaka](https://github.com/nanoporetech/medaka) or [Clair3](https://github.com/HKU-BAL/Clair3/)
