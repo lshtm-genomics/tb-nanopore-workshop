@@ -56,6 +56,12 @@ The basecalled data is in the `~/data/example_data` folder. Change the working d
 cd ~/data/example_data
 ```
 
+Then activate the right conda environment:
+
+```
+conda activate mapping
+```
+
 !!! question "Exercise"
     
     === "Question"
