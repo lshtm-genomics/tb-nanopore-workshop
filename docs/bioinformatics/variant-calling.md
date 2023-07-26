@@ -37,6 +37,8 @@ Variant calling in Oxford Nanopore sequencing data poses unique challenges due t
 ## Activity
 We are going to take the three TB samples you mapped in the previous activity and perform variant calling. There are many tools available for variant calling. The most common are [Freebayes](https://github.com/freebayes/freebayes) or [GATK](https://gatk.broadinstitute.org/hc/en-us), but these are used primarily for short-read data. We are going to use nanopore-specific tools. Options include ONT's own [Medaka](https://github.com/nanoporetech/medaka) or [Clair3](https://github.com/HKU-BAL/Clair3/) which both incorporate aspects of the complex basecalling models to avoid making low-frequency or false calls. However, for ease, we will use another tools adapted for variant calling nanopore data called Pilon.
 
+## VCFs
+
 All variant callers create outputs called a Variant Call File (VCF). This file contains variant positions in a BAM alignment, where the reads mapped do not match the reference sequence. The variant caller will scan each position in an alignment and quantify the bases supporting the REF or bases supporting and alternative (ALT) variant call. Below is an example of a VCF, which we will generate in the next step. Take a look at the features and try to understand their importance. 
 
 | #CHROM | POS   | ID     | REF | ALT | QUAL | FILTER | INFO      | FORMAT | Sample1 |
@@ -75,5 +77,19 @@ All variant callers create outputs called a Variant Call File (VCF). This file c
 10. **`SAMPLE(s)`**
     - Data for each sample. The data types and order are defined in the `FORMAT` field.
 
-    
-With Pilon, we will set a hard cut-off limit for accepting var
+## Calling variants for our TB samples
+With Pilon, we can set a hard cut-off limit for the variants we accept. Given that we have used nanopore sequencing, we set this high to avoid picking up erroneous variants.
+
+*Run Pilon now on the three BAMs created in the previous session*
+
+```
+
+```
+
+Now that the variant calling is complete, you can open the VCF files and inspect the variants. If you were writing a paper on the prevalence of mutations in a population, you could use this output to make a table reporting allele frequencies of mutations.
+
+```
+zcat sample1.vcf.gz
+```
+
+We can visualise the variant calls alongside the mapping data you have created. With IGV open, and your alignment loaded, add the VCF track, and navigate to position XXXXXXX. Here we can see where the variant caller has found a position with > 70% of the bases supporting the ALT allele. Navigate to position XXX. Here we can see where a variant has not _made the cut_. In this case, the ALT frequency was < 70%, therefore, it was not included as a variant in our VCF.
