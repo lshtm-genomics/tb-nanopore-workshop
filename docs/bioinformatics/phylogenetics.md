@@ -15,10 +15,11 @@ Phylogenetics is the study of the evolutionary relationships and history among s
 
 IQ-TREE is a widely-used software tool for the construction of phylogenetic trees using maximum likelihood methods. Developed as an alternative to traditional tools like RAxML and PhyML, IQ-TREE is recognized for its efficiency and speed, especially when handling large datasets. One of its distinguishing features is the ability to automatically determine the best-fitting substitution model, which simplifies the process for users. Additionally, IQ-TREE provides a range of advanced features and supports various types of analyses, making it a versatile choice in evolutionary biology and related fields.
 
-Forst activate the right conda environment:
+Forst activate the right conda environment and go to the direcotry containing all the files for this session:
 
 ```
 conda activate tb-profiler
+cd ~/data/example_data/phylogenetics/exercise2
 ```
 
 And then reconstruct the tree use the following command:
@@ -93,16 +94,7 @@ The primary mechanism for acquiring resistance in M. tuberculosis is the accumul
 
 Using web-based tools is a great way to run software without the need for installation or knowledge of Linux or the command-line. However, these are often not convenient to use if you have many samples, or don’t have access to the internet. Many of the tools that we have used today are also available as command-line software (or have equivalents). To demonstrate this, we will run tb-profiler on our terminal. 
 
-Before running tb-profiler we will need to activate the environment using the following command:
-
 ```
-conda activate tb-profiler
-```
-
-After this we can run the profiling as we have done using tbdr.lshtm.ac.uk. The following commands will change directory to where the data is and profile the first sample:
-
-```
-cd ~/data/tb
 tb-profiler profile --read1 A70067_1.fastq.gz --prefix A70067_1 --txt
 ```
 
@@ -112,19 +104,12 @@ There are a few arguments that we have given:
  - `--prefix` : This specifies the prefix for the output files
  - `--txt` : This ensures a text output will be created 
 
-!!! question
-    Have a look at the output (~/data/tb/results/A70067_1.results.txt). Does it look the same as the profile we got from tbdr.lshtm.ac.uk? 
 
 **Try running the command for A70067_2 by changing the appropriate parameters.**
 
-We can then combine several runs of tb-profiler into a single summary file with the collate function:
-
-```
-tb-profiler collate
-```
 
 !!! question
-    Have a look at the output file ~/data/tb/tbprofiler.txt using a text editor.  Do the profiles look different?
+    Have a look at both result files (in the results folder).  Do the profiles look different?
 
 Now we’ll run tb-profiler on all samples. Running it from fastq files can take some time as it must go through all processing steps including trimming, mapping and variant calling. As a result it can take a while to run. Tb-profiler also can take input from vcf files which just contain variants. To run the pipeline using the provided vcfs the command should look like:
 
@@ -145,7 +130,7 @@ ls *.vcf.gz | awk 'BEGIN {print "id,vcf"} {print $1","$1}' | sed 's/.vcf.gz//' >
 This will create a csv file with two columns: id and vcf. Have a look at the format by running `head vcf_files.csv`. Now you can tell tb-profiler to run the pipeline for all samples in the csv file by running:
 
 ```
-tb-profiler batch -csv vcf_files.csv --args "--snp_dist 20"
+tb-profiler batch --csv vcf_files.csv --args "--snp_dist 20"
 ```
 
 You’ll notice we didn’t give the `--vcf` and `--prefix` arguments as these are read from the csv file. We do have to specify any additional arguments with `--args` followed by the arguments as you would type them for a single sample command.
@@ -156,7 +141,7 @@ After it has finished running we can again combine the output files into a singl
 tb-profiler collate
 ```
 
-This will produce in addition to the **tbprofiler.txt** output file it will also create a file called **tbprofiler.transmission_graph.json**. We will visualise this we a web-based tool that you can open in your web browser at [https://jodyphelan.github.io/transmission-graph-viewer](https://jodyphelan.github.io/transmission-graph-viewer)
+This will produce in addition to the **tbprofiler.txt** output file it will also create a file called **tbprofiler.transmission_graph.json**. We will visualise this we a web-based tool that you can open in your web browser at [https://jodyphelan.github.io/tgv](https://jodyphelan.github.io/tgv)
 
 After the page loads click on the upload box and select the .json file. This represents the samples as nodes and where pairs of samples have a snp-distance less or equal to the cutoff an edge will be drawn between them (Figure 10). 
 
