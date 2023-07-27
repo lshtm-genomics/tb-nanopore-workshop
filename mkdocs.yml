@@ -12,6 +12,7 @@ theme:
 
 
 markdown_extensions:
+  - attr_list
   - admonition
   - footnotes
   - pymdownx.details
@@ -39,5 +40,6 @@ nav:
       - bioinformatics/mapping.md
       - bioinformatics/variant-calling.md
       - bioinformatics/tb-profiler.md
+      - bioinformatics/phylogenetics.md
   - Extra-reading:
       - extra-reading/about_conda.md
