@@ -85,15 +85,94 @@ With Pilon, we can set a hard cut-off limit for the variants we accept. Given th
 **Run Pilon now on the three BAMs created in the previous session**
 
 ```
-Pilon command here
+pilon -Xmx2g --genome ~/refgenome/tb.fasta --nanopore sample1.bam --variant --output sample1 --mindepth 20
+```
+
+We use the `-Xmx2g` argument to provide 2 gb of RAM to pilon. If your VM/computer doesn't have enough RAM this step might fail. 
+
+This command will output every site in the genome including those at which there are no variants and those at which there is a low amount of evidence. To get high quality variants we can extract only those which occur in >70% of the reads.
+
+```
+bcftools view -i 'AF>0.7' sample1.vcf > sample1.filt.vcf
 ```
 
 Now that the variant calling is complete, you can open the VCF files and inspect the variants. If you were writing a paper on the prevalence of mutations in a population, you could use this output to make a table reporting allele frequencies of mutations.
 
 ```
-zcat sample1.vcf.gz
+less sample1.filt.vcf
 ```
 
-We can visualise the variant calls alongside the mapping data you have created. With IGV open, and your alignment loaded, add the VCF track, and navigate to position XXXXXXX. Here we can see where the variant caller has found a position with > 70% of the bases supporting the ALT allele. Navigate to position XXX. Here we can see where a variant has not _made the cut_. In this case, the ALT frequency was < 70%, therefore, it was not included as a variant in our VCF.
+If you want to view this information as a neater table we can use the bcftools query function which allows you to query the vcf and extract specific information about each variant
+
+```
+bcftools query -f '%POS %REF ALT %AF\n'
+```
+
+This will extract the position, reference, alternate and the frequency of the alternate allele in the raw data. Bcftools is very useful when you want to extract specific information in a table format that you can then feed into downstream analyses. 
+
+We can visualise the variant calls alongside the mapping data you have created. With IGV open, and your alignment loaded, add the VCF track, and navigate to position 761155. Here we can see where the variant caller has found a position with > 70% of the bases supporting the ALT allele. Navigate to position 760497. Here we can see where a variant has not _made the cut_. In this case, the ALT frequency was < 70%, therefore, it was not included as a variant in our VCF.
+
+![Variant in alignment](../img/variants_2.png)
+
+![Variant in alignment](../img/variants_3.png)
+
 
 ## Consequence calling  
+
+Drug resistance in Mtb is cause by mutations in drug targets and drug converting enzymes. Below is a non-exhaustive list of drugs and assosciated resistance genes. 
+
+|     Drug               |     Gene                                         |
+|------------------------|--------------------------------------------------|
+|     Isoniazid          |     katG, fabG1 promoter, inhA    |
+|     Rifampicin         |     rpoB, rpoC                                   |
+|     Ethambutol         |     embB, embC, embA,                     |
+|     Ethionamide        |     fabG1 promoter, inhA, ethA                  |
+|     Pyrazinamide       |     pncA, pncA-Rv2044c                         |
+|     Streptomycin       |     rpsL, gid, rrs                           |
+|     Aminoglycosides    |     rrs, eis promoter, tlyA                     |
+|     Fluroquinolones    |     gyrA, gyrB                                 |
+|     Cycloserine      |     alr, ald                                     |
+|     PAS                |     thyA, thyX promoter, folC, ribB              |
+
+We will try to look through our variant list to find out if any mutations in these candidate genes exist. The first step in this process is to annotate the gene each mutations is located on. To do this we can use a tool called snpEff which annotates genes and also converts the nucleotide change into protein coding changes. The input is a VCF file and the output is the same VCF with the additional information added using the "ANN" tag in the INFO field. We can run this tool with the following command:
+
+```
+snpEff ann Mycobacterium_tuberculosis_h37rv -no-downstream -ud 50 sample1.filt.vcf > sample1.filt.ann.vcf
+```
+
+The `-no-downstream` arguments prevents variants from being annotated with downstream gene consequences as these are rarely significant in tb. The `-ud 100` if a variant is upstream of a gene it will only be annotated with that gene if it falls within 100 nucleotides of the start. This  ensures that genes occuring in the promoter of a gene will be annotated correctly but anything further away thatn 100 nt from a gene start is unlikely to have an effect on that gene.
+
+
+We can again extract the relevant information from the VCF file with  `bcftools query`:
+
+```
+bcftools query -f '%POS %REF %ALT %AF %ANN\n' sample1.filt.ann.vcf > sample1.mutations.txt
+```
+
+!!! question "Exercise"
+    Check this file to see if we have any resistance variants presented in the table below. You can do this by using a tool called `grep` to search for specific text in a file. For example:
+
+    ```
+    grep inhA sample1.mutations.txt
+    ```
+
+    What pattern of resistance does this sample have?
+
+| Gene | Mutation    | Drug       |
+|------|-------------|------------|
+| inhA | p.Ile194Thr | isoniazid  |
+| inhA | p.Ile21Asn  | isoniazid  |
+| inhA | p.Ile21Thr  | isoniazid  |
+| inhA | p.Ile21Val  | isoniazid  |
+| inhA | p.Ser94Leu  | isoniazid  |
+| inhA | p.Ser94Ala  | isoniazid  |
+| inhA | p.Ser94Trp  | isoniazid  |
+| rpoB | p.Ser450Tyr | rifampicin |
+| rpoB | p.Ser450Phe | rifampicin |
+| rpoB | p.Ser450Leu | rifampicin |
+| rpoB | p.Ser450Met | rifampicin |
+| rpoB | p.Ser431Gly | rifampicin |
+| rpoB | p.Ser431Thr | rifampicin |
+| rpoB | p.Ser431Arg | rifampicin |
+
+
