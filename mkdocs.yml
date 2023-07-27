@@ -38,3 +38,4 @@ nav:
       - bioinformatics/basecalling.md
       - bioinformatics/mapping.md
       - bioinformatics/variant-calling.md
+      - bioinformatics/tb-profiler.md

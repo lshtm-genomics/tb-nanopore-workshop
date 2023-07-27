@@ -105,7 +105,7 @@ less sample1.filt.vcf
 If you want to view this information as a neater table we can use the bcftools query function which allows you to query the vcf and extract specific information about each variant
 
 ```
-bcftools query -f '%POS %REF ALT %AF\n'
+bcftools query -f '%POS %REF ALT %AF\n' sample1.filt.vcf
 ```
 
 This will extract the position, reference, alternate and the frequency of the alternate allele in the raw data. Bcftools is very useful when you want to extract specific information in a table format that you can then feed into downstream analyses. 
