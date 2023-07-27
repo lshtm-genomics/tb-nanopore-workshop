@@ -152,9 +152,9 @@ After the page loads click on the upload box and select the .json file. This rep
 ![](../img/phylo_4.jpg){: style="width:50%"}
 
 Finally, the collate command also produces annotation config files that can be used with iTOL. To load the annotations simple drag and drop the following files onto the tree that you loaded earlier:
--	Tbprofiler.lineage.itol.txt – a strip with the main lineage annotated.
--	Tbprofiler.dr.itol.txt – a strip indicating the drug resistance type.
--	Tbprofiler.dr.individ.itol.txt – circles for each individual drug where a solid filled circle indicates resistance.
+* tbprofiler.lineage.itol.txt – a strip with the main lineage annotated.
+* tbprofiler.dr.itol.txt – a strip indicating the drug resistance type.
+* tbprofiler.dr.individ.itol.txt – circles for each individual drug where a solid filled circle indicates resistance.
 
 
 ![](../img/phylo_5.jpg)
