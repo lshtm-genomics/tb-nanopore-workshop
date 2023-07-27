@@ -79,11 +79,7 @@ Now we can use tb-profiler to use fill in this template with the information fro
 tb-profiler reformat results/sample1.json --docx --docx_template brti_template.docx
 ```
 
-You should now have a word file called **sample1.results.docx** in your directory. Find and open this file  using the file explorer or open it directly with:
-
-```
-libreoffice sample1.results.docx
-```
+You should now have a word file called **sample1.results.docx** in your directory. Open this file by clicking on [this link](https://lshtm-my.sharepoint.com/:w:/g/personal/lsh1603403_lshtm_ac_uk/EXOZEpBubkVPu-Uq8oQRdD8B-evbmSXwyOaPWTt8vad3CQ?e=1ffiwL)
 
 !!! question
     Do you see the same information as with the text report?
