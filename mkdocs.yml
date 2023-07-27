@@ -39,3 +39,5 @@ nav:
       - bioinformatics/mapping.md
       - bioinformatics/variant-calling.md
       - bioinformatics/tb-profiler.md
+  - Extra-reading:
+      - extra-reading/about_conda.md

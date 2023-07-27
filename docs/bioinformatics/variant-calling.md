@@ -80,6 +80,18 @@ All variant callers create outputs called a Variant Call File (VCF). This file c
     - Data for each sample. The data types and order are defined in the `FORMAT` field.
 
 ## Calling variants for our TB samples
+First, you want to activate the relevant conda environment. Activate the **tb-profiler** environment to load all of the programs required for variant calling:
+
+```
+conda activate tb-profiler
+```
+
+We want to make sure we are in the folder with all of the alignments you generated in the previous activity. Move to the 'example_data' folder:
+
+```
+cd ~/data/example_data/
+```
+
 With Pilon, we can set a hard cut-off limit for the variants we accept. Given that we have used nanopore sequencing, we set this high to avoid picking up erroneous variants.
 
 **Run Pilon now on the three BAMs created in the previous session**
@@ -105,7 +117,7 @@ less sample1.filt.vcf
 If you want to view this information as a neater table we can use the bcftools query function which allows you to query the vcf and extract specific information about each variant
 
 ```
-bcftools query -f '%POS %REF ALT %AF\n' sample1.filt.vcf
+bcftools query -f '%POS %REF %ALT %AF\n' sample1.filt.vcf
 ```
 
 This will extract the position, reference, alternate and the frequency of the alternate allele in the raw data. Bcftools is very useful when you want to extract specific information in a table format that you can then feed into downstream analyses. 
