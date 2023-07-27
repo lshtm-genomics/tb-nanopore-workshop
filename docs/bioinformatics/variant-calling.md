@@ -80,8 +80,6 @@ All variant callers create outputs called a Variant Call File (VCF). This file c
     - Data for each sample. The data types and order are defined in the `FORMAT` field.
 
 ## Calling variants for our TB samples
-With Pilon, we can set a hard cut-off limit for the variants we accept. Given that we have used nanopore sequencing, we set this high to avoid picking up erroneous variants.
-
 First, you want to activate the relevant conda environment. Activate the **tb-profiler** environment to load all of the programs required for variant calling:
 
 ```conda activate tb-profiler```
@@ -90,6 +88,7 @@ We want to make sure we are in the folder with all of the alignments you generat
 
 ```cd ~/data/example_data/```
 
+With Pilon, we can set a hard cut-off limit for the variants we accept. Given that we have used nanopore sequencing, we set this high to avoid picking up erroneous variants.
 
 **Run Pilon now on the three BAMs created in the previous session**
 
