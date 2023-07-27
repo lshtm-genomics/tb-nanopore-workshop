@@ -39,4 +39,4 @@ nav:
       - bioinformatics/mapping.md
       - bioinformatics/variant-calling.md
   - Extra reading:
-      - about_conda.md
+      - extra-reading/about_conda.md
