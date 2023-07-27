@@ -86,10 +86,9 @@ First, you want to activate the relevant conda environment. Activate the **tb-pr
 
 ```conda activate tb-profiler```
 
-We want to make sure we are in the folder with all of the aligmnets you generaterd in the previous activity. Move to the 'example_data' folder:
+We want to make sure we are in the folder with all of the alignments you generated in the previous activity. Move to the 'example_data' folder:
 
 ```cd ~/data/example_data/```
-
 
 
 **Run Pilon now on the three BAMs created in the previous session**
