@@ -73,7 +73,7 @@ wget https://github.com/jodyphelan/tb-profiler-templates/raw/main/docx/brti_temp
 Now we can use tb-profiler to use fill in this template with the information from sample1:
 
 ```
-tb-profiler reformat results/sample1.json --docx --docx_template brti_template.docx
+tb-profiler reformat results/sample1.results.json --docx --docx_template brti_template.docx
 ```
 
 You should now have a word file called **sample1.results.docx** in your directory. Open this file by clicking on [this link](https://lshtm-my.sharepoint.com/:w:/g/personal/lsh1603403_lshtm_ac_uk/EXOZEpBubkVPu-Uq8oQRdD8B-evbmSXwyOaPWTt8vad3CQ?e=1ffiwL)
