@@ -1,0 +1,959 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../mapping/">
+      
+      
+        <link rel="next" href="../tb-profiler/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.1, mkdocs-material-9.1.21">
+    
+    
+      
+        <title>Variant calling Oxford Nanopore sequencing data - Mapping</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.eebd395e.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#variant-calling-oxford-nanopore-sequencing-data" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mapping" class="md-header__button md-logo" aria-label="Mapping" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mapping
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Variant calling Oxford Nanopore sequencing data
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../lab-protocols" class="md-tabs__link">
+      Lab-protocols
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../intro-to-linux/" class="md-tabs__link md-tabs__link--active">
+        Bioinformatics
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../extra-reading/about_conda/" class="md-tabs__link">
+        Extra-reading
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mapping" class="md-nav__button md-logo" aria-label="Mapping" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Mapping
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab-protocols" class="md-nav__link">
+        Lab-protocols
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Bioinformatics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Bioinformatics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro-to-linux/" class="md-nav__link">
+        Linux
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/" class="md-nav__link">
+        The data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basecalling/" class="md-nav__link">
+        Nanopore sequencing base calling and quality control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mapping/" class="md-nav__link">
+        Aligning reads
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Variant calling Oxford Nanopore sequencing data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Variant calling Oxford Nanopore sequencing data
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#intended-learning-outcomes" class="md-nav__link">
+    Intended learning outcomes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    Background
+  </a>
+  
+    <nav class="md-nav" aria-label="Background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variant-calling-a-birds-eye-view" class="md-nav__link">
+    Variant Calling: A Bird’s-Eye View
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#challenges-with-oxford-nanopore-sequencing" class="md-nav__link">
+    Challenges with Oxford Nanopore Sequencing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preventing-false-variants-strategies-to-remember" class="md-nav__link">
+    Preventing False Variants: Strategies to Remember
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-conclusion" class="md-nav__link">
+    In Conclusion
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activity" class="md-nav__link">
+    Activity
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vcfs" class="md-nav__link">
+    VCFs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calling-variants-for-our-tb-samples" class="md-nav__link">
+    Calling variants for our TB samples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequence-calling" class="md-nav__link">
+    Consequence calling
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tb-profiler/" class="md-nav__link">
+        TB-profiler
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phylogenetics/" class="md-nav__link">
+        Phylogenetics
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Extra-reading
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Extra-reading
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-reading/about_conda/" class="md-nav__link">
+        Conda Environments: Why and How to Use Them
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="variant-calling-oxford-nanopore-sequencing-data">Variant calling Oxford Nanopore sequencing data</h1>
+<h2 id="intended-learning-outcomes">Intended learning outcomes</h2>
+<p>This practical session goes into how to perform variant calling on long-read sequencing data from ONT:</p>
+<ol>
+<li>Learn the concepts behind variant calling</li>
+<li>ONT data specific tools for variant calling</li>
+<li>Visualising variants in genomic contexts </li>
+</ol>
+<h2 id="background">Background</h2>
+<p>Variants in genomic data refer to differences in the sequence of DNA or RNA between individuals or between a sample and a reference genome. These differences can manifest as single nucleotide polymorphisms (SNPs), insertions, deletions, or more complex structural variations. Given that you're familiar with sequencing technologies and mapping, let's delve straight into the concept of variant calling, emphasizing its application in Oxford Nanopore sequencing data.</p>
+<p><img alt="Variant in alignment" src="../../img/variant_diagram.png" /></p>
+<h3 id="variant-calling-a-birds-eye-view">Variant Calling: A Bird’s-Eye View</h3>
+<p>Once you've sequenced your DNA sample and mapped the reads onto a reference genome, the next step is to identify where your sample differs from this reference. This process is known as variant calling. Conceptually, it's like comparing two texts and highlighting where they differ. In this genomic context, these differences — or variants — can be tiny, like a single changed letter (a SNP), or larger, like a whole sentence being added or removed (an insertion or deletion).</p>
+<h3 id="challenges-with-oxford-nanopore-sequencing">Challenges with Oxford Nanopore Sequencing</h3>
+<p>Oxford Nanopore Technologies (ONT) provides a unique sequencing approach, producing long reads that can span thousands to tens of thousands of bases. This is a game-changer for detecting structural variants and sequencing challenging regions of the genome. However, there's a catch: these long reads come with a higher error rate compared to other sequencing technologies.</p>
+<p>The errors introduced during ONT sequencing can be substitutions, insertions, or deletions. This can make variant calling more challenging because we need to differentiate between genuine variants and errors introduced by the sequencing process.</p>
+<h3 id="preventing-false-variants-strategies-to-remember">Preventing False Variants: Strategies to Remember</h3>
+<p>Given the error-prone nature of Oxford Nanopore sequencing, strategies have been developed to distinguish real variants from sequencing errors:</p>
+<ol>
+<li>
+<p>Depth of Coverage: One of the simplest ways to differentiate between true variants and errors is by looking at the depth of coverage. A genuine variant will typically be observed in multiple reads covering the same position, while a sequencing error might only appear in one or a few reads. Sometime we set a hard cut-off, where for example, 70% of the bases at a position would have to support a variant call.</p>
+</li>
+<li>
+<p>Statistical Modeling: Many modern variant callers employ statistical models to evaluate the likelihood that a detected variant is real. These models consider various factors, such as the quality score of the bases in the reads, the depth of coverage, and the expected error rate of the sequencing technology.</p>
+</li>
+<li>
+<p>Using a Combination of Sequencing Technologies: If resources allow, combining the long-read data from ONT with short-read data from platforms like Illumina can provide a more comprehensive and accurate variant landscape. The short-read data, with its lower error rate, can validate variants detected by the long reads. This is called hybrid sequencing analysis, which is very powerful when both long-reads and high-fidelity is required.</p>
+</li>
+<li>
+<p>Repeat &amp; Validate: Especially for critical findings, consider re-sequencing the sample or using a different method (like PCR followed by Sanger sequencing) to validate the identified variants.</p>
+</li>
+</ol>
+<h3 id="in-conclusion">In Conclusion</h3>
+<p>Variant calling in Oxford Nanopore sequencing data poses unique challenges due to its error-prone nature. But with careful data processing, the use of specialized tools designed for long reads, and strategies to discern real variants from errors, researchers can extract valuable genetic insights from their samples. As with any genomic analysis, it's always a good practice to stay updated with the latest tools and methodologies, and always cross-check critical results for the highest accuracy.</p>
+<h2 id="activity">Activity</h2>
+<p>We are going to take the three TB samples you mapped in the previous activity and perform variant calling. There are many tools available for variant calling. The most common are <a href="https://github.com/freebayes/freebayes">Freebayes</a> or <a href="https://gatk.broadinstitute.org/hc/en-us">GATK</a>, but these are used primarily for short-read data. We are going to use nanopore-specific tools. Options include ONT's own <a href="https://github.com/nanoporetech/medaka">Medaka</a> or <a href="https://github.com/HKU-BAL/Clair3/">Clair3</a> which both incorporate aspects of the complex basecalling models to avoid making low-frequency or false calls. However, for ease, we will use another tools adapted for variant calling nanopore data called Pilon.</p>
+<h2 id="vcfs">VCFs</h2>
+<p>All variant callers create outputs called a Variant Call File (VCF). This file contains variant positions in a BAM alignment, where the reads mapped do not match the reference sequence. The variant caller will scan each position in an alignment and quantify the bases supporting the REF or bases supporting and alternative (ALT) variant call. Below is an example of a VCF, which we will generate in the next step. Take a look at the features and try to understand their importance. </p>
+<table>
+<thead>
+<tr>
+<th>#CHROM</th>
+<th>POS</th>
+<th>ID</th>
+<th>REF</th>
+<th>ALT</th>
+<th>QUAL</th>
+<th>FILTER</th>
+<th>INFO</th>
+<th>FORMAT</th>
+<th>Sample1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>12345</td>
+<td>.</td>
+<td>A</td>
+<td>G</td>
+<td>29</td>
+<td>PASS</td>
+<td>DP=20</td>
+<td>GT</td>
+<td>0/1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>67890</td>
+<td>.</td>
+<td>T</td>
+<td>C</td>
+<td>3</td>
+<td>PASS</td>
+<td>DP=15</td>
+<td>GT</td>
+<td>1/1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>54321</td>
+<td>.</td>
+<td>G</td>
+<td>A</td>
+<td>60</td>
+<td>PASS</td>
+<td>DP=25</td>
+<td>GT</td>
+<td>0/0</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p><strong><code>#CHROM</code> (Chromosome)</strong></p>
+<ul>
+<li>Name of the chromosome (e.g., 1-22, X, Y, or MT for humans).</li>
+</ul>
+</li>
+<li>
+<p><strong><code>POS</code> (Position)</strong></p>
+<ul>
+<li>The reference position, starting from 1.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>ID</code></strong></p>
+<ul>
+<li>Variant identifiers. Defaults to a dot (<code>.</code>) if none.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>REF</code> (Reference Base(s))</strong></p>
+<ul>
+<li>Reference base(s) for the variant. For insertions, it's the base before the insertion.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>ALT</code> (Alternative Base(s))</strong></p>
+<ul>
+<li>Comma-separated list of the alternative allele(s). Defaults to a dot (<code>.</code>) if none.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>QUAL</code> (Quality)</strong></p>
+<ul>
+<li>Phred-scaled quality score. Defaults to a dot (<code>.</code>) if unknown.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>FILTER</code></strong></p>
+<ul>
+<li>Filters that the variant has passed or failed. "PASS" if all filters are passed. Defaults to a dot (<code>.</code>) if filtering hasn't been applied.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>INFO</code></strong></p>
+<ul>
+<li>Additional information about the variant. Described in meta-information lines (e.g., <code>##INFO</code>).</li>
+</ul>
+</li>
+<li>
+<p><strong><code>FORMAT</code></strong></p>
+<ul>
+<li>Describes the data types and order for the per-sample columns.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>SAMPLE(s)</code></strong></p>
+<ul>
+<li>Data for each sample. The data types and order are defined in the <code>FORMAT</code> field.</li>
+</ul>
+</li>
+</ol>
+<h2 id="calling-variants-for-our-tb-samples">Calling variants for our TB samples</h2>
+<p>First, you want to activate the relevant conda environment. Activate the <strong>tb-profiler</strong> environment to load all of the programs required for variant calling:</p>
+<div class="highlight"><pre><span></span><code>conda activate tb-profiler
+</code></pre></div>
+<p>We want to make sure we are in the folder with all of the alignments you generated in the previous activity. Move to the 'example_data' folder:</p>
+<div class="highlight"><pre><span></span><code>cd ~/data/example_data/
+</code></pre></div>
+<p>With Pilon, we can set a hard cut-off limit for the variants we accept. Given that we have used nanopore sequencing, we set this high to avoid picking up erroneous variants.</p>
+<p><strong>Run Pilon now on the three BAMs created in the previous session</strong></p>
+<div class="highlight"><pre><span></span><code>pilon -Xmx2g --genome ~/refgenome/tb.fasta --nanopore sample1.bam --variant --output sample1 --mindepth 20
+</code></pre></div>
+<p>We use the <code>-Xmx2g</code> argument to provide 2 gb of RAM to pilon. If your VM/computer doesn't have enough RAM this step might fail. </p>
+<p>This command will output every site in the genome including those at which there are no variants and those at which there is a low amount of evidence. To get high quality variants we can extract only those which occur in &gt;70% of the reads.</p>
+<div class="highlight"><pre><span></span><code>bcftools view -i &#39;AF&gt;0.7&#39; sample1.vcf &gt; sample1.filt.vcf
+</code></pre></div>
+<p>Now that the variant calling is complete, you can open the VCF files and inspect the variants. If you were writing a paper on the prevalence of mutations in a population, you could use this output to make a table reporting allele frequencies of mutations.</p>
+<div class="highlight"><pre><span></span><code>less sample1.filt.vcf
+</code></pre></div>
+<p>If you want to view this information as a neater table we can use the bcftools query function which allows you to query the vcf and extract specific information about each variant</p>
+<div class="highlight"><pre><span></span><code>bcftools query -f &#39;%POS %REF %ALT %AF\n&#39; sample1.filt.vcf
+</code></pre></div>
+<p>This will extract the position, reference, alternate and the frequency of the alternate allele in the raw data. Bcftools is very useful when you want to extract specific information in a table format that you can then feed into downstream analyses. </p>
+<p>We can visualise the variant calls alongside the mapping data you have created. With IGV open, and your alignment loaded, add the VCF track, and navigate to position 761155. Here we can see where the variant caller has found a position with &gt; 70% of the bases supporting the ALT allele. Navigate to position 760497. Here we can see where a variant has not <em>made the cut</em>. In this case, the ALT frequency was &lt; 70%, therefore, it was not included as a variant in our VCF.</p>
+<p><img alt="Variant in alignment" src="../../img/variants_2.png" /></p>
+<p><img alt="Variant in alignment" src="../../img/variants_3.png" /></p>
+<h2 id="consequence-calling">Consequence calling</h2>
+<p>Drug resistance in Mtb is cause by mutations in drug targets and drug converting enzymes. Below is a non-exhaustive list of drugs and assosciated resistance genes. </p>
+<table>
+<thead>
+<tr>
+<th>Drug</th>
+<th>Gene</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Isoniazid</td>
+<td>katG, fabG1 promoter, inhA</td>
+</tr>
+<tr>
+<td>Rifampicin</td>
+<td>rpoB, rpoC</td>
+</tr>
+<tr>
+<td>Ethambutol</td>
+<td>embB, embC, embA,</td>
+</tr>
+<tr>
+<td>Ethionamide</td>
+<td>fabG1 promoter, inhA, ethA</td>
+</tr>
+<tr>
+<td>Pyrazinamide</td>
+<td>pncA, pncA-Rv2044c</td>
+</tr>
+<tr>
+<td>Streptomycin</td>
+<td>rpsL, gid, rrs</td>
+</tr>
+<tr>
+<td>Aminoglycosides</td>
+<td>rrs, eis promoter, tlyA</td>
+</tr>
+<tr>
+<td>Fluroquinolones</td>
+<td>gyrA, gyrB</td>
+</tr>
+<tr>
+<td>Cycloserine</td>
+<td>alr, ald</td>
+</tr>
+<tr>
+<td>PAS</td>
+<td>thyA, thyX promoter, folC, ribB</td>
+</tr>
+</tbody>
+</table>
+<p>We will try to look through our variant list to find out if any mutations in these candidate genes exist. The first step in this process is to annotate the gene each mutations is located on. To do this we can use a tool called snpEff which annotates genes and also converts the nucleotide change into protein coding changes. The input is a VCF file and the output is the same VCF with the additional information added using the "ANN" tag in the INFO field. We can run this tool with the following command:</p>
+<div class="highlight"><pre><span></span><code>snpEff ann Mycobacterium_tuberculosis_h37rv -no-downstream -ud 50 sample1.filt.vcf &gt; sample1.filt.ann.vcf
+</code></pre></div>
+<p>The <code>-no-downstream</code> arguments prevents variants from being annotated with downstream gene consequences as these are rarely significant in tb. The <code>-ud 100</code> if a variant is upstream of a gene it will only be annotated with that gene if it falls within 100 nucleotides of the start. This  ensures that genes occuring in the promoter of a gene will be annotated correctly but anything further away thatn 100 nt from a gene start is unlikely to have an effect on that gene.</p>
+<p>We can again extract the relevant information from the VCF file with  <code>bcftools query</code>:</p>
+<div class="highlight"><pre><span></span><code>bcftools query -f &#39;%POS %REF %ALT %AF %ANN\n&#39; sample1.filt.ann.vcf &gt; sample1.mutations.txt
+</code></pre></div>
+<div class="admonition question">
+<p class="admonition-title">Exercise</p>
+<p>Check this file to see if we have any resistance variants presented in the table below. You can do this by using a tool called <code>grep</code> to search for specific text in a file. For example:</p>
+<div class="highlight"><pre><span></span><code>grep inhA sample1.mutations.txt
+</code></pre></div>
+<p>What pattern of resistance does this sample have?</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Gene</th>
+<th>Mutation</th>
+<th>Drug</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>inhA</td>
+<td>p.Ile194Thr</td>
+<td>isoniazid</td>
+</tr>
+<tr>
+<td>inhA</td>
+<td>p.Ile21Asn</td>
+<td>isoniazid</td>
+</tr>
+<tr>
+<td>inhA</td>
+<td>p.Ile21Thr</td>
+<td>isoniazid</td>
+</tr>
+<tr>
+<td>inhA</td>
+<td>p.Ile21Val</td>
+<td>isoniazid</td>
+</tr>
+<tr>
+<td>inhA</td>
+<td>p.Ser94Leu</td>
+<td>isoniazid</td>
+</tr>
+<tr>
+<td>inhA</td>
+<td>p.Ser94Ala</td>
+<td>isoniazid</td>
+</tr>
+<tr>
+<td>inhA</td>
+<td>p.Ser94Trp</td>
+<td>isoniazid</td>
+</tr>
+<tr>
+<td>rpoB</td>
+<td>p.Ser450Tyr</td>
+<td>rifampicin</td>
+</tr>
+<tr>
+<td>rpoB</td>
+<td>p.Ser450Phe</td>
+<td>rifampicin</td>
+</tr>
+<tr>
+<td>rpoB</td>
+<td>p.Ser450Leu</td>
+<td>rifampicin</td>
+</tr>
+<tr>
+<td>rpoB</td>
+<td>p.Ser450Met</td>
+<td>rifampicin</td>
+</tr>
+<tr>
+<td>rpoB</td>
+<td>p.Ser431Gly</td>
+<td>rifampicin</td>
+</tr>
+<tr>
+<td>rpoB</td>
+<td>p.Ser431Thr</td>
+<td>rifampicin</td>
+</tr>
+<tr>
+<td>rpoB</td>
+<td>p.Ser431Arg</td>
+<td>rifampicin</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.tooltips", "navigation.instant", "navigation.tabs", "toc.integrate", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+    
+  </body>
+</html>
