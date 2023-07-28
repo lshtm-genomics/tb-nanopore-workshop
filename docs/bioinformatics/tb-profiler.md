@@ -50,11 +50,8 @@ The results from numerous runs can be collated into one table using the followin
 tb-profiler collate
 ```
 
-This will automatically create a number of colled result files from all the individual result files in the result directory. You should now see several files that have been created in your current directory. Open up the main summary file using:
+This will automatically create a number of colled result files from all the individual result files in the result directory. You should now see several files that have been created in your current directory. Open up the main summary file using using [this link](https://lshtm-my.sharepoint.com/:x:/g/personal/lsh1603403_lshtm_ac_uk/EbzA_JE3tAFIr6VsW_wfx2sBaGc_F_2I9tR1zP9p0vR7mw?e=EZuguJ)
 
-```
-libreoffice --calc tbprofiler.txt
-```
 
 This will open an open source alternative to excel called libreoffice. When the file is opened you should one line for each sample. The columns give you information about:
 

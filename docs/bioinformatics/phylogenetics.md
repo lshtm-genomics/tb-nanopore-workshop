@@ -90,7 +90,7 @@ The primary mechanism for acquiring resistance in M. tuberculosis is the accumul
 |     _rpoB_    |     _Rv0667_        |     763031                 |     T/C                  |     A1075A                                |     Non-lineage 4 specific SNP       |
 
 
-## 4. Investigating transmission
+## Investigating transmission
 
 Using web-based tools is a great way to run software without the need for installation or knowledge of Linux or the command-line. However, these are often not convenient to use if you have many samples, or don’t have access to the internet. Many of the tools that we have used today are also available as command-line software (or have equivalents). To demonstrate this, we will run tb-profiler on our terminal. 
 
